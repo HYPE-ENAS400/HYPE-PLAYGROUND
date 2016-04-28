@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <link href="styles/splash.css" rel="stylesheet" type="text/css" media="all">
 <title>Hyperion</title>
+<script src="scripts/jquery-latest.min.js"></script>
+<script src="scripts/jquery-ui.min.js"></script>
+<script src="scripts/ost-custom.js"></script>
 </head>
 <body>
 <div class="imageHolder">
@@ -11,32 +14,19 @@
 </div>
 <div class="buttonHolder">
 	<form action="magazine.php" method="post" id="form1">
-		<input type="hidden" name="points" id="points"/>
-		<input type="hidden" name="shouldShowAds" id="shouldShowAds"/>
-  		<button type="submit" onClick="CalculateAds();" name="hype" class="myButton">View With Hype</button>
+		<input type="hidden" name="viewWithHype" id="viewWithHype"/>
+  		<button type="submit" onClick="viewHype();" name="hype" class="myButton">View With Hype</button>
   		<button type="submit" onClick="showAds();" name="ads" class="myButton">View With Ads</button>
 	</form>
 </div>
 </body>
 <script type="text/javascript">
 	function showAds() {
-		var points = 0;
-		document.getElementById("points").value= points;
-		console.log(document.getElementById("points").value);
-		document.getElementById("shouldShowAds").value= true;
-		console.log(document.getElementById("shouldShowAds").value);
+		document.getElementById("viewWithHype").value= false;
 		document.getElementById("form1").submit();
 	}
-	function CalculateAds() {
-		var points = 10;
-		document.getElementById("points").value= points;
-		console.log(document.getElementById("points").value);
-		if(points > 5) {
-			document.getElementById("shouldShowAds").value= false;
-		} else {
-			document.getElementById("shouldShowAds").value= true;
-		}
-		console.log(document.getElementById("shouldShowAds").value);
+	function viewHype() {
+		document.getElementById("viewWithHype").value= true;
 		document.getElementById("form1").submit();
 	}
 </script>

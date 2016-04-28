@@ -10,27 +10,60 @@
 <script src="scripts/jquery-latest.min.js"></script>
 <script src="scripts/jquery-ui.min.js"></script>
 <script src="scripts/ost-custom.js"></script>
+<script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
+
 </head>
 <body id="akq">
 
-<script type="text/javascript">
 
+<script type="text/javascript">
 $(document).ready(function() {
-	var showAds = <?php echo $_POST['shouldShowAds']?>;
-	if (showAds) {
-		console.log("SHOULD SHOW ADS :" + showAds)
+	var viewWithHype = <?php echo $_POST['viewWithHype'] ?>;
+	if (viewWithHype) {
+		var ref = new Firebase("https://enas400hype.firebaseio.com/users/4de94929-914c-4022-947b-e3b165e69865");
+		
+		ref.on("value", function(snapshot) {
+		  var data = snapshot.val();
+		  console.log("Points: " + data.contentCount);
+		  
+		  if (data.contentCount > 500) {
+			var ads = document.getElementsByClassName("advertisement");
+			for (var i = 0; i < ads.length; i++) {
+	            ads[i].style.display = "none";
+	        }
+		  } 
+		  else {
+			var ads = document.getElementsByClassName("advertisement");
+			for (var i = 0; i < ads.length; i++) {
+	            ads[i].style.display = "inline-block";
+	        }
+	        console.log("Send notification");
+	        sendNotification();
+	        	
+		  }
+		}, function (errorObject) {
+		  console.log("The read failed: " + errorObject.code);
+		});
+	} 
+	else {
 		var ads = document.getElementsByClassName("advertisement");
 		for (var i = 0; i < ads.length; i++) {
-            ads[i].style.display = "inline-block";
-        }
-	} else {
-		console.log("SHOULD SHOW ADS :" + showAds)
-		var ads = document.getElementsByClassName("advertisement");
-		for (var i = 0; i < ads.length; i++) {
-            ads[i].style.display = "none";
-        }
+	        ads[i].style.display = "inline-block";
+	    }
 	}
 });
+
+function sendNotification() {
+   $.ajax({
+      url:'sendNotification.php',
+      complete: function () {
+          console.log("it worked")
+      },
+      error: function () {
+          console.log("nope")
+      }
+  });
+}
 
 </script>
 <div class="aga ajv">
