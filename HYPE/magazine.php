@@ -16,6 +16,7 @@
 <body id="akq">
 
 
+
 <script type="text/javascript">
 $(document).ready(function() {
 	var viewWithHype = <?php echo $_POST['viewWithHype'] ?>;
@@ -31,8 +32,11 @@ $(document).ready(function() {
 			for (var i = 0; i < ads.length; i++) {
 	            ads[i].style.display = "none";
 	        }
+	        ref.off("value")
+	        ref.child("contentCount").set(data.contentCount - 2)
 		  } 
 		  else {
+
 			var ads = document.getElementsByClassName("advertisement");
 			for (var i = 0; i < ads.length; i++) {
 	            ads[i].style.display = "inline-block";
@@ -56,8 +60,12 @@ $(document).ready(function() {
 function sendNotification() {
    $.ajax({
       url:'sendNotification.php',
-      complete: function () {
-          console.log("it worked")
+
+      // data: {},
+      // dataType: 'script',
+      success: function (response) {
+      	console.log("it worked")
+        console.log(response)
       },
       error: function () {
           console.log("nope")
