@@ -26,7 +26,7 @@ $(document).ready(function() {
 		  var data = snapshot.val();
 		  console.log("Points: " + data.contentCount);
 		  
-		  if (data.contentCount > 500) {
+		  if (data.contentCount > 1) {
 			var ads = document.getElementsByClassName("advertisement");
 			for (var i = 0; i < ads.length; i++) {
 	            ads[i].style.display = "none";
